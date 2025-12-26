@@ -21,44 +21,85 @@ html_code = """
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curato - Professional Gift Scout</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Poppins (Headings) & Inter (Body) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Confetti for the 'Delight' factor -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
         h1, h2, h3, .brand-font { font-family: 'Poppins', sans-serif; }
+        
+        /* Smooth Scroll */
         html { scroll-behavior: smooth; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Custom Animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
         .animate-fade-up { animation: fadeUp 0.6s ease-out forwards; }
-        .glass-card { background: rgba(255, 255, 255, 0.92); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.6); box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.05); }
-        .text-gradient { background: linear-gradient(135deg, #0f172a 0%, #334155 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Professional New Year Gradient */
+        .text-gradient {
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%); /* Deep Navy/Charcoal */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Button Press Effect */
         .btn-press:active { transform: scale(0.98); }
+        
+        /* Tab Styles */
         .tab-active { border-bottom: 2px solid #1e293b; color: #1e293b; font-weight: 600; }
         .tab-inactive { color: #94a3b8; }
-        @keyframes blob { 0% { transform: translate(0px, 0px) scale(1); } 33% { transform: translate(30px, -50px) scale(1.1); } 66% { transform: translate(-20px, 20px) scale(0.9); } 100% { transform: translate(0px, 0px) scale(1); } }
-        .animate-blob { animation: blob 10s infinite; }
-        .animation-delay-2000 { animation-delay: 2s; }
+
+        /* Blob Animation */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 10s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        
+        /* Hide scrollbar for cleaner embed */
         ::-webkit-scrollbar { width: 0px; background: transparent; }
     </style>
 </head>
 <body class="bg-slate-50 min-h-screen relative overflow-x-hidden selection:bg-slate-200 selection:text-slate-800">
 
-    <!-- Background Decoration -->
+    <!-- Subtle Animated Background -->
     <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
         <div class="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-blue-50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob"></div>
         <div class="absolute top-[20%] left-[-10%] w-[500px] h-[500px] bg-purple-50 rounded-full mix-blend-multiply filter blur-3xl opacity-60 animate-blob animation-delay-2000"></div>
     </div>
 
-    <!-- Navigation -->
+    <!-- Navigation / Brand -->
     <nav class="w-full px-6 py-6 flex justify-center">
         <div class="glass-card px-8 py-3 rounded-full flex flex-col items-center cursor-pointer hover:shadow-md transition-all duration-300 group">
             <div class="flex items-center gap-2">
                 <span class="text-xl group-hover:rotate-12 transition-transform">🎁</span>
                 <span class="font-bold text-slate-800 tracking-tight text-lg">Curato</span>
             </div>
-            <span class="text-[10px] text-slate-500 font-medium tracking-widest uppercase mt-1">Gifting Intelligence</span>
+            <span class="text-[10px] text-slate-500 font-medium tracking-widest uppercase mt-1">Professional Concierge</span>
         </div>
     </nav>
 
@@ -66,13 +107,17 @@ html_code = """
     <main class="max-w-4xl mx-auto px-4 py-10 flex flex-col items-center">
         
         <!-- Hero Section -->
-        <div class="text-center mb-8 max-w-2xl animate-fade-up">
-            <h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-slate-900 brand-font">
-                Gift smarter,<br>
-                <span class="text-gradient">not harder.</span>
+        <div class="text-center mb-10 max-w-2xl animate-fade-up">
+            <div class="inline-flex items-center gap-2 px-3 py-1 bg-white border border-slate-200 rounded-full text-xs font-bold text-slate-600 mb-6 shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                NEW YEAR • FRESH STARTS
+            </div>
+            <h1 class="text-4xl md:text-5xl font-extrabold mb-6 leading-tight text-slate-900 brand-font">
+                A thoughtful start to<br>
+                <span class="text-gradient">the new year.</span>
             </h1>
             <p class="text-slate-500 text-lg md:text-xl font-medium leading-relaxed">
-                Tell Scout what you need. We'll handle the thinking.
+                Professional gifting, handled — without the usual confusion or last-minute stress.
             </p>
         </div>
 
@@ -89,18 +134,22 @@ html_code = """
 
             <!-- MODE 1: Quick Filter (Dropdowns) -->
             <div id="mode-quick" class="grid grid-cols-1 md:grid-cols-10 gap-8 items-start">
+                
+                <!-- Input 1: Context -->
                 <div class="md:col-span-5 relative group">
                     <label class="block text-sm font-bold text-slate-800 mb-1 ml-1">Context</label>
                     <div class="relative">
                         <select id="contextInput" class="w-full bg-slate-50 border border-slate-200 text-slate-800 font-medium text-base py-4 px-4 rounded-xl appearance-none focus:outline-none focus:border-slate-800 focus:bg-white transition-colors cursor-pointer shadow-sm">
-                            <option value="Desk">Desk Essentials</option>
-                            <option value="Tech">Tech & Gadgets</option>
-                            <option value="Travel">Travel & Commute</option>
-                            <option value="Safe">Safe & Neutral</option>
+                            <option value="Desk">Desk Essentials & Stationery</option>
+                            <option value="Tech">Tech Gear & Organizers</option>
+                            <option value="Travel">Travel & Commute Items</option>
+                            <option value="Safe">Safe & Neutral (Universal)</option>
                         </select>
                         <div class="absolute top-4 right-4 flex items-center pointer-events-none text-slate-400"><i data-lucide="chevron-down"></i></div>
                     </div>
                 </div>
+
+                <!-- Input 2: Budget -->
                 <div class="md:col-span-3 relative group">
                     <label class="block text-sm font-bold text-slate-800 mb-1 ml-1">Budget</label>
                     <div class="relative">
@@ -113,7 +162,9 @@ html_code = """
                         <div class="absolute top-4 right-4 flex items-center pointer-events-none text-slate-400"><i data-lucide="chevron-down"></i></div>
                     </div>
                 </div>
-                <div class="md:col-span-2 flex flex-col justify-end h-full">
+
+                <!-- Button -->
+                <div class="md:col-span-2 flex flex-col justify-end h-full mt-2">
                     <button onclick="findGifts('filter')" class="btn-press w-full bg-slate-800 hover:bg-slate-900 text-white font-semibold text-base py-4 px-6 rounded-xl shadow-lg shadow-slate-200 transition-all flex items-center justify-center gap-2 group">
                         <span>Find</span>
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
@@ -135,6 +186,70 @@ html_code = """
                 <p class="text-xs text-slate-400 mt-2 ml-1">Try keywords like "coffee", "travel", "music", "writing", "tech".</p>
             </div>
 
+        </div>
+
+        <!-- Default State (Popular Picks) -->
+        <div id="defaultState" class="w-full animate-fade-up">
+            <div class="mb-8 border-l-4 border-slate-800 pl-4 py-1">
+                <h2 class="text-2xl font-bold text-slate-900 brand-font">Popular safe picks</h2>
+                <p class="text-slate-500 text-sm mt-1">Frequently chosen, low-risk professional gifts.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col h-full group transform hover:-translate-y-1 duration-300">
+                    <div class="h-48 bg-slate-50 rounded-xl mb-5 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1585336261022-680e295ce3fe?auto=format&fit=crop&w=400&q=80" 
+                             alt="Parker Vector Pen" 
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-3 right-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-slate-700 shadow-sm border border-slate-100">₹450</div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">Safe Choice</p>
+                    <h3 class="font-bold text-xl text-slate-900 leading-tight mb-3 brand-font">Parker Vector Pen</h3>
+                    <div class="flex-grow">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">"The universal symbol of a professional gift."</p>
+                    </div>
+                    <a href="https://www.amazon.in/s?k=Parker+Vector+Stainless+Steel+CT+Ball+Pen" target="_blank" class="mt-auto w-full flex items-center justify-center gap-2 border border-slate-200 hover:border-slate-800 hover:bg-slate-800 hover:text-white text-slate-700 font-semibold py-3 rounded-xl transition-all btn-press">
+                        <span>View trusted option</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col h-full group transform hover:-translate-y-1 duration-300">
+                    <div class="h-48 bg-slate-50 rounded-xl mb-5 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&w=400&q=80" 
+                             alt="Alloy Laptop Stand" 
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-3 right-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-slate-700 shadow-sm border border-slate-100">₹699</div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">High Utility</p>
+                    <h3 class="font-bold text-xl text-slate-900 leading-tight mb-3 brand-font">Alloy Laptop Stand</h3>
+                    <div class="flex-grow">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">"Saves their neck. Folds into a stick."</p>
+                    </div>
+                    <a href="https://www.amazon.in/s?k=Portronics+My+Buddy+K+Portable+Laptop+Stand" target="_blank" class="mt-auto w-full flex items-center justify-center gap-2 border border-slate-200 hover:border-slate-800 hover:bg-slate-800 hover:text-white text-slate-700 font-semibold py-3 rounded-xl transition-all btn-press">
+                        <span>View trusted option</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-xl transition-all border border-slate-100 flex flex-col h-full group transform hover:-translate-y-1 duration-300">
+                    <div class="h-48 bg-slate-50 rounded-xl mb-5 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1602143407151-011141950038?auto=format&fit=crop&w=400&q=80" 
+                             alt="Milton Thermosteel" 
+                             class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute top-3 right-3 bg-white/95 backdrop-blur px-3 py-1 rounded-lg text-xs font-bold text-slate-700 shadow-sm border border-slate-100">₹750</div>
+                    </div>
+                    <p class="text-[10px] font-bold tracking-widest text-slate-400 uppercase mb-2">Daily Use</p>
+                    <h3 class="font-bold text-xl text-slate-900 leading-tight mb-3 brand-font">Milton Thermosteel</h3>
+                    <div class="flex-grow">
+                        <p class="text-slate-600 text-sm leading-relaxed mb-4">"The gold standard. Keeps coffee hot for 4 hours."</p>
+                    </div>
+                    <a href="https://www.amazon.in/s?k=Milton+Thermosteel+Flip+Lid+500ml" target="_blank" class="mt-auto w-full flex items-center justify-center gap-2 border border-slate-200 hover:border-slate-800 hover:bg-slate-800 hover:text-white text-slate-700 font-semibold py-3 rounded-xl transition-all btn-press">
+                        <span>View trusted option</span><i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
         </div>
 
         <!-- Loading State -->
@@ -163,6 +278,34 @@ html_code = """
             </div>
         </div>
 
+        <!-- Trust Section -->
+        <div class="mt-24 border-t border-slate-200 pt-12 w-full max-w-3xl">
+            <h3 class="text-center text-slate-800 font-bold text-lg mb-10 brand-font">How we choose gifts for you</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+                <div class="text-left group hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mb-3 group-hover:bg-slate-200 transition-colors">
+                        <i data-lucide="check-circle" class="w-5 h-5 text-green-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2">High Utility</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Items that naturally become part of someone’s workday.</p>
+                </div>
+                <div class="text-left group hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mb-3 group-hover:bg-slate-200 transition-colors">
+                        <i data-lucide="shield" class="w-5 h-5 text-blue-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2">Office Safe</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">No novelty items or loud designs. Safe for everyone.</p>
+                </div>
+                <div class="text-left group hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center mb-3 group-hover:bg-slate-200 transition-colors">
+                        <i data-lucide="tag" class="w-5 h-5 text-purple-600"></i>
+                    </div>
+                    <h4 class="font-bold text-slate-900 text-sm mb-2">Fair Value</h4>
+                    <p class="text-xs text-slate-500 leading-relaxed">Optimized for perceived value within your budget.</p>
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <footer class="mt-12 py-8 text-center text-slate-400 text-sm border-t border-slate-100 bg-white">
@@ -171,9 +314,10 @@ html_code = """
 
     <!-- Logic Script -->
     <script>
+        // Initialize Icons
         lucide.createIcons();
 
-        // 1. EXPANDED INVENTORY WITH FIXED IMAGE IDs (No more broken images)
+        // 1. EXPANDED INVENTORY WITH FIXED IMAGE IDs
         const inventory = [
             // DESK & WRITING
             { name: "Parker Vector Pen", price: 450, tags: ["safe", "desk", "classic", "writing"], url: "https://www.amazon.in/s?k=Parker+Vector+Stainless+Steel+CT+Ball+Pen", pitch: "The universal symbol of a professional gift.", bestFor: "Formal settings", imgId: "1585336261022-680e295ce3fe" },
@@ -206,7 +350,7 @@ html_code = """
             
             // PREMIUM
             { name: "Samsonite Tech Backpack", price: 3800, tags: ["travel", "carry", "safe", "premium"], url: "https://www.amazon.in/s?k=Samsonite+Laptop+Backpack", pitch: "Corporate standard. Indestructible.", bestFor: "Senior Managers", imgId: "1553062407-98eeb64c6a62" },
-            { name: "Google Nest Mini", price: 3499, tags: ["tech", "setup", "home"], url: "https://www.amazon.in/s?k=Google+Nest+Mini", pitch: "Smart assistant for the home office.", bestFor: "Tech lovers", imgId: "1543512214-318c77a9e254" }
+            { name: "Google Nest Mini", price: 3499, tags: ["tech", "setup", "home"], url: "https://www.amazon.in/s?k=Google+Nest+Mini", pitch: "A smart, modern addition to any home office setup.", bestFor: "Tech lovers", imgId: "1543512214-318c77a9e254" }
         ];
 
         let currentResults = [];
@@ -244,6 +388,7 @@ html_code = """
             } 
             else if (mode === 'chat') {
                 const text = document.getElementById('chatInput').value.toLowerCase();
+                // Simple keyword extraction
                 if (text.includes("coffee") || text.includes("tea")) filterTags.push("coffee");
                 if (text.includes("travel") || text.includes("fly") || text.includes("commute")) filterTags.push("travel", "carry");
                 if (text.includes("tech") || text.includes("gadget")) filterTags.push("tech");
@@ -251,7 +396,7 @@ html_code = """
                 if (text.includes("manager") || text.includes("boss")) filterTags.push("premium", "classic");
                 if (text.includes("music") || text.includes("audio")) filterTags.push("music");
                 if (text.includes("eco") || text.includes("green")) filterTags.push("eco");
-                if (filterTags.length === 0) filterTags.push("safe");
+                if (filterTags.length === 0) filterTags.push("safe"); // Default fallback
             }
 
             // Scoring
@@ -282,7 +427,9 @@ html_code = """
         function findGifts(mode) {
             const loading = document.getElementById('loadingState');
             const resultsArea = document.getElementById('resultsArea');
+            const defaultState = document.getElementById('defaultState');
             
+            if (defaultState) defaultState.classList.add('hidden'); // Hide default
             resultsArea.classList.add('hidden');
             loading.classList.remove('hidden');
             confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 }, colors: ['#334155', '#94a3b8'] });
@@ -308,11 +455,12 @@ html_code = """
                     cardsContainer.innerHTML = `<div class="col-span-3 text-center py-10"><h3 class="font-bold text-slate-700">No specific matches.</h3><p class="text-slate-500">Try broad keywords like "Office" or "Travel".</p></div>`;
                 } else {
                     startIndex = 0;
-                    renderCards(); 
+                    renderCards(); // Reset loop
                     return;
                 }
             } else {
                 batch.forEach(item => {
+                    // Use Direct Unsplash ID URL
                     const imgUrl = `https://images.unsplash.com/photo-${item.imgId}?auto=format&fit=crop&w=400&q=80`;
                     
                     cardsContainer.innerHTML += `
