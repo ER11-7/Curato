@@ -2,188 +2,150 @@ import streamlit as st
 import streamlit.components.v1 as components
 import json
 
-# =========================================================
-# 1. PAGE CONFIGURATION
-# =========================================================
+# ----------------------------------
+# PAGE CONFIG
+# ----------------------------------
 st.set_page_config(
-    page_title="Curato | Professional Gifting, Without Guesswork",
+    page_title="Curato | Professional Gifting",
     page_icon="🎁",
     layout="wide",
     initial_sidebar_state="collapsed"
 )
 
-# =========================================================
-# 2. CORE INVENTORY (SOURCE OF TRUTH)
-# =========================================================
-# NOTE:
-# - Intentionally limited
-# - Opinionated
-# - Tiered (safe / bold)
-# - Human judgment embedded
-# - Amazon links should be ASIN / Idea List ready
-
+# ----------------------------------
+# INVENTORY (SOURCE OF TRUTH)
+# ----------------------------------
 INVENTORY = [
     {
-        "id": "parker_vector",
-        "name": "Parker Vector Stainless Steel Pen",
-        "category": "desk",
-        "tier": "safe",
+        "name": "Parker Vector Pen",
         "price": 450,
-        "budget_bucket": 500,
-        "certainty_score": 9.5,
-        "human_reason": "Matte steel body feels substantial in hand and never looks cheap in meetings.",
-        "avoid_if": ["very casual teams"],
-        "amazon_url": "https://www.amazon.in/dp/B00LMRZ4PE"
+        "context": ["desk"],
+        "tier": "safe",
+        "human_reason": "Universally accepted. Signals professionalism without trying too hard.",
+        "certainty_score": 9,
+        "amazon_url": "https://www.amazon.in/s?k=Parker+Vector+Pen"
     },
     {
-        "id": "laptop_stand",
-        "name": "Aluminium Laptop Stand (Foldable)",
-        "category": "tech",
-        "tier": "safe",
+        "name": "Alloy Laptop Stand",
         "price": 699,
-        "budget_bucket": 1500,
-        "certainty_score": 9.2,
-        "human_reason": "Solves neck strain instantly and works for anyone using a laptop daily.",
-        "avoid_if": ["desktop-only roles"],
-        "amazon_url": "https://www.amazon.in/dp/B08F2L1G1C"
+        "context": ["desk", "tech"],
+        "tier": "safe",
+        "human_reason": "Improves posture instantly. Almost everyone needs one.",
+        "certainty_score": 9,
+        "amazon_url": "https://www.amazon.in/s?k=Aluminium+Laptop+Stand"
     },
     {
-        "id": "milton_thermosteel",
-        "name": "Milton Thermosteel Bottle (500ml)",
-        "category": "universal",
-        "tier": "safe",
+        "name": "Milton Thermosteel Bottle",
         "price": 750,
-        "budget_bucket": 1500,
-        "certainty_score": 9.0,
-        "human_reason": "Zero leakage, no branding embarrassment, and genuinely used every day.",
-        "avoid_if": ["people who already carry glass bottles"],
-        "amazon_url": "https://www.amazon.in/dp/B01M1YIY8U"
-    },
-    {
-        "id": "tech_organiser",
-        "name": "Structured Tech Organiser Pouch",
-        "category": "tech",
+        "context": ["travel", "desk"],
         "tier": "safe",
-        "price": 1299,
-        "budget_bucket": 3000,
-        "certainty_score": 8.8,
-        "human_reason": "Immediately reduces cable clutter for hybrid workers.",
-        "avoid_if": ["non-tech roles"],
-        "amazon_url": "https://www.amazon.in/dp/B09GFPQ8MJ"
+        "human_reason": "Daily-use item with no taste or size risk.",
+        "certainty_score": 8,
+        "amazon_url": "https://www.amazon.in/s?k=Milton+Thermosteel"
     },
     {
-        "id": "moleskine_notebook",
-        "name": "Moleskine Classic Notebook",
-        "category": "desk",
+        "name": "Logitech Pebble Mouse",
+        "price": 1400,
+        "context": ["tech"],
         "tier": "bold",
-        "price": 1900,
-        "budget_bucket": 3000,
-        "certainty_score": 7.8,
-        "human_reason": "Premium feel that creatives appreciate, but overkill for some roles.",
-        "avoid_if": ["strict cost-sensitive environments"],
-        "amazon_url": "https://www.amazon.in/dp/B07M5L7LXY"
+        "human_reason": "Silent, minimal, and surprisingly delightful to use.",
+        "certainty_score": 7,
+        "amazon_url": "https://www.amazon.in/s?k=Logitech+Pebble+Mouse"
     },
     {
-        "id": "samsonite_backpack",
-        "name": "Samsonite Professional Laptop Backpack",
-        "category": "travel",
-        "tier": "bold",
+        "name": "Samsonite Laptop Backpack",
         "price": 3800,
-        "budget_bucket": 10000,
-        "certainty_score": 7.5,
-        "human_reason": "Corporate-safe premium that signals seriousness without being flashy.",
-        "avoid_if": ["junior interns", "very casual startups"],
-        "amazon_url": "https://www.amazon.in/dp/B084JH8L8P"
+        "context": ["travel"],
+        "tier": "safe",
+        "human_reason": "Corporate standard. Reliable and neutral.",
+        "certainty_score": 8,
+        "amazon_url": "https://www.amazon.in/s?k=Samsonite+Laptop+Backpack"
     }
 ]
 
-# =========================================================
-# 3. AVOID LIST (TRUST BUILDER)
-# =========================================================
+# ----------------------------------
+# AVOID LIST (STATIC FOR NOW)
+# ----------------------------------
 AVOID_LIST = [
-    "Clothing or apparel (size risk)",
-    "Mugs with text or jokes",
-    "Religious or political symbols",
-    "Cheap plastic desk decor",
-    "Anything that sits unused"
+    "Mugs with slogans or jokes",
+    "Strong perfumes or personal care items",
+    "Cheap plastic desk toys",
+    "Food items with dietary assumptions",
+    "Oversized branding or novelty gifts"
 ]
 
-# =========================================================
-# 4. RECOMMENDATION ENGINE (CERTAINTY-FIRST)
-# =========================================================
-def recommend_items(
-    context: str,
-    budget: int,
-    tier: str = "safe",
-    limit: int = 3
-):
-    """
-    Core decision engine.
-    Reduces choice instead of expanding it.
-    """
+# ----------------------------------
+# FILTER ENGINE
+# ----------------------------------
+def generate_results(context, budget, tier):
+    budget = int(budget)
 
-    # Budget handling
-    if budget == 10000:
-        budget_cap = 100000
-        min_price = 3000
-    else:
-        budget_cap = budget
-        min_price = 0
-
-    filtered = []
-
+    results = []
     for item in INVENTORY:
-        if item["price"] < min_price:
+        if item["price"] > budget and budget != 10000:
             continue
-        if item["price"] > budget_cap:
+
+        if context != "any" and context not in item["context"]:
             continue
+
         if tier == "safe" and item["tier"] != "safe":
             continue
-        if context != "any" and item["category"] != context:
-            continue
-        filtered.append(item)
 
-    # Rank by certainty score
-    filtered.sort(key=lambda x: x["certainty_score"], reverse=True)
+        results.append(item)
 
-    return filtered[:limit]
+    # If bold tier requested, allow ONE bold item
+    if tier == "bold":
+        bolds = [i for i in INVENTORY if i["tier"] == "bold" and i not in results]
+        if bolds:
+            results.append(bolds[0])
 
-# =========================================================
-# 5. EXPOSE DATA TO FRONTEND (SESSION BRIDGE)
-# =========================================================
-if "api_response" not in st.session_state:
-    st.session_state.api_response = {}
+    # Sort by certainty
+    results.sort(key=lambda x: x["certainty_score"], reverse=True)
 
-query_params = st.experimental_get_query_params()
+    return results[:3]
+
+# ----------------------------------
+# HANDLE QUERY PARAMS
+# ----------------------------------
+query_params = st.query_params
+
+curato_data = {}
 
 if "fetch" in query_params:
-    context = query_params.get("context", ["any"])[0]
-    budget = int(query_params.get("budget", [1500])[0])
-    tier = query_params.get("tier", ["safe"])[0]
+    context = query_params.get("context", "any")
+    budget = query_params.get("budget", "1500")
+    tier = query_params.get("tier", "safe")
 
-    results = recommend_items(context, budget, tier)
+    results = generate_results(context, budget, tier)
 
-    st.session_state.api_response = {
+    curato_data = {
         "results": results,
-        "avoid_list": AVOID_LIST,
-        "mode": "b2c",
-        "tier": tier
+        "avoid_list": AVOID_LIST
     }
 
-# =========================================================
-# 6. LOAD FRONTEND
-# =========================================================
+# ----------------------------------
+# LOAD HTML TEMPLATE
+# ----------------------------------
 with open("index.html", "r", encoding="utf-8") as f:
     html_template = f.read()
 
-# Inject backend data safely
-html_with_data = html_template.replace(
-    "__CURATO_DATA__",
-    json.dumps(st.session_state.api_response)
+# Inject data safely
+data_script = f"""
+<script>
+    const __CURATO_DATA__ = {json.dumps(curato_data)};
+</script>
+"""
+
+html_template = html_template.replace(
+    '<script>\n    const CURATO_DATA = __CURATO_DATA__ || {};\n</script>',
+    data_script
 )
 
+# ----------------------------------
+# RENDER
+# ----------------------------------
 components.html(
-    html_with_data,
-    height=2000,
-    scrolling=True
+    html_template,
+    height=1400,
+    scrolling=False
 )
